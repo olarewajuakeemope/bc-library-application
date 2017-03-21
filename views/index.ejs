@@ -1,11 +1,52 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
   <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+  <title><%= title %></title>
+
+<% include partials/head.ejs %>
+
   </head>
+
   <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
+    <div class="bc-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+      <% include partials/topnav.ejs %>
+
+      <% include partials/sidenav.ejs %>
+
+        <main class="mdl-layout__content mdl-color--grey-100">
+            <div class="mdl-grid portfolio-max-width">
+            <% if(data.book_list) { %>
+              <% for (var book of data.book_list) { %>
+               <div class="mdl-cell mdl-card mdl-shadow--4dp portfolio-card">
+                    <div class="mdl-card__media">
+                        <img class="article-image" src=" images/example-work01.jpg" border="0" alt="">
+                    </div>
+                    <div class="mdl-card__title">
+                        <h2 class="mdl-card__title-text"><%= book.title %></h2>
+                    </div>
+                    <div class="mdl-card__supporting-text">
+                    <p><a href=<%= book.author.url %>
+                     > By <%= book.author.name %></a></p>
+                        <%= book.summary %>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url %>
+                        >Read more</a>
+                    </div>
+                </div>
+                <% } %>
+               <% }else{ %>
+                <h2>there are no books yet</h2>
+               <% } %>
+            </div>
+
+        <% include partials/footer.ejs %>
+
+        </main>
+    </div>
+
+    <% include partials/scripts.ejs %>
+
   </body>
 </html>
