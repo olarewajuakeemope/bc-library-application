@@ -4,11 +4,34 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+// var firebase = require("firebase-admin");
+var expressValidator = require('express-validator');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var catalog = require('./routes/catalog');
+var compression = require('compression');
+var helmet = require('helmet');
+
+// var serviceAccount = require("./libapp-1d721-firebase-adminsdk-paci0-afb92e4cf4");
+
+// firebase.initializeApp({
+//   credential: firebase.credential.cert(serviceAccount),
+//   databaseURL: "https://libapp-1d721.firebaseio.com"
+// });
+
+// console.log(firebase);
 
 var app = express();
+
+app.use(helmet());
+
+//Set up mongoose connection
+var mongoose = require('mongoose');
+var mongoDB = process.env.MONGODB_URI || 'mongodb://libapp:password@ds113000.mlab.com:13000/local_library';
+mongoose.connect(mongoDB);
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -19,11 +42,15 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(expressValidator());
 app.use(cookieParser());
+
+app.use(compression()); //Compress all routes
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/catalog', catalog);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
