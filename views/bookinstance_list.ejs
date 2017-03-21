@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <title>Book Instances</title>
+
+<% include partials/head.ejs %>
+
+  </head>
+
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="bc-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+      <% include partials/topnav.ejs %>
+
+      <% include partials/sidenavDefault.ejs %>
+
+        <main class="mdl-layout__content mdl-color--grey-100">
+         <div class="mdl-layout__tab-panel is-active" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col">Book Instances</h4>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+             <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+              <% if(bookinstance_list){ %><ol>
+                <% for (var val of bookinstance_list) { %>
+                  <li><p><a href=<%= val.url %> > <%= val.book.title %> : <%= val.imprint %> - 
+                  <% if(val.status=='Available'){ %>
+                    <span class="text-success"><%= val.status %></span>
+                <% }else if(val.status=='Maintenance'){ %>
+                    <span class="text-warning"><%= val.status %></span>
+                <% }else{ %>
+                    <span class="text-danger"><%= val.status %></span>
+                 <% } %>
+              </a></p>
+                <% if(val.status!='Available'){ %>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <span>Due Date</span>
+                    <span><%= val.due_back_formatted %></span>
+                </div>
+                <% } %></li>
+                  <% } %>
+                <% }else{ %>
+                    <li><p>There are no book copies in this library yet</p></li>
+                <% } %></ol>
+                </div>
+
+              </div>
+          </section>
+            </div>
+
+        </main>
+    </div>
+
+    <% include partials/scripts.ejs %>
+
+  </body>
+</html>
