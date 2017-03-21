@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <title><%= author.title %></title>
+
+<% include partials/head.ejs %>
+
+  </head>
+
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="bc-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+      <% include partials/topnav.ejs %>
+
+      <% include partials/sidenavDefault.ejs %>
+
+        <main class="mdl-layout__content mdl-color--grey-100">
+         <div class="mdl-layout__tab-panel is-active" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col"><%= author.name %></h4>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                    <p><%= author.lifespan %></p>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>BOOKS</h5>
+                  <% if(author_books){ %>
+                  <% for (var book of author_books) { %>
+                    <p><a href=<%= book.url %> > <%= book.title %></a></p>
+                    <p><%= book.summary %></p>
+                  <% } %>
+                  <% }else{ %>
+                    <p>This Author has no books</p>
+                  <% } %>
+                </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= author.url+'/delete' %>
+                        >Delete</a>
+                    </div>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= author.url+'/update' %>
+                        >Update</a>
+                    </div>
+              </div>
+          </section>
+            </div>
+
+        </main>
+    </div>
+
+    <% include partials/scripts.ejs %>
+
+  </body>
+</html>
