@@ -5,6 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "devstart": "nodemon ./bin/www"
+  },"engines": {
+    "node": "6.9.5"
   },
   "dependencies": {
     "async": "^2.1.5",
