@@ -75,6 +75,9 @@ exports.book_detail = function(req, res, next) {
 // Display book create form on GET
 exports.book_create_get = function(req, res, next) {
 
+    var book = 0;
+    var errors = 0;
+
     //Get all authors and genres, which we can use for adding to our book.
     async.parallel({
         authors: function(callback) {
@@ -85,7 +88,7 @@ exports.book_create_get = function(req, res, next) {
         },
     }, function(err, results) {
         if (err) { return next(err); }
-        res.render('book_form', { title: 'Create Book',authors:results.authors, genres:results.genres });
+        res.render('book_form', { title: 'Create Book',authors:results.authors, genres:results.genres, book:book, errors:errors });
     });
 
 };
@@ -215,6 +218,8 @@ exports.book_delete_post = function(req, res, next) {
 // Display book update form on GET
 exports.book_update_get = function(req, res, next) {
 
+    var errors = 0;
+
     req.sanitize('id').escape();
     req.sanitize('id').trim();
 
@@ -240,7 +245,7 @@ exports.book_update_get = function(req, res, next) {
                     }
                 }
             }
-            res.render('book_form', { title: 'Update Book', authors:results.authors, genres:results.genres, book: results.book });
+            res.render('book_form', { title: 'Update Book', authors:results.authors, genres:results.genres, book: results.book, errors: errors });
         });
 
 };

@@ -38,7 +38,11 @@ exports.author_detail = function(req, res, next) {
 
 // Display Author create form on GET
 exports.author_create_get = function(req, res, next) {
-    res.render('author_form', { title: 'Create Author'});
+
+    var author = 0;
+    var errors = 0;
+
+    res.render('author_form', { title: 'Create Author', author: author, errors: errors });
 };
 
 // Handle Author create on POST
@@ -137,12 +141,14 @@ exports.author_delete_post = function(req, res, next) {
 // Display Author update form on GET
 exports.author_update_get = function(req, res, next) {
 
+    var errors = 0;
+
     req.sanitize('id').escape();
     req.sanitize('id').trim();
     Author.findById(req.params.id, function(err, author) {
         if (err) { return next(err); }
         //On success
-        res.render('author_form', { title: 'Update Author', author: author });
+        res.render('author_form', { title: 'Update Author', author: author, errors: errors });
 
     });
 };

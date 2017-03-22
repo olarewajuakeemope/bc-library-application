@@ -29,7 +29,19 @@
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <select class="mdl-textfield__input" placeholder="Select book" type="select" name="book" required="true">
                 <% for(var book of book_list){ %>
-                    <option value=<%= book._id %> ><%= book.title %></option>
+                  <% if(book!=0){ %>
+                    <option selected=
+
+                  <% if(selected_book==book._id){ %>
+                    "selected"
+                  <% }else{ %>
+                    false
+                  <% } %>
+
+                      value=<%= book._id %> ><%= book.title %></option>
+                    <% }else{ %>
+                     <option value=<%= book._id %> ><%= book.title %></option>
+                    <% } %>
                 <% } %>
               </select>
               <label class="mdl-textfield__label" for="book">Book</label>
@@ -44,17 +56,42 @@
               <label class="mdl-textfield__label" for="status">Status</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" placeholder="Publisher and date information" name="imprint" value='' required='true'>
+              <input class="mdl-textfield__input" type="text" placeholder="Publisher and date information" name="imprint" value=
+
+              <% if(bookinstance==0){ %>
+                 ""
+              <% }else{ %>
+                 <%= bookinstance.imprint %>
+              <% } %>
+
+               required='true'>
               <label class="mdl-textfield__label" for="imprint">Imprint</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="date" name="due_back" value=''>
-              <div><p>Date when book available</p></div>
+              <span>Date when book is available</span>
+              <input class="mdl-textfield__input" value=
+
+              <% if(bookinstance==0){ %>
+                 ""
+              <% }else{ %>
+                 <%= bookinstance.due_back_yyyy_mm_dd %>
+              <% } %>
+
+               type="date" name="due_back">
             </div>
             <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
               Submit
             </button>
           </form>
+
+  <% if(errors!=0){ %> 
+    <ul>
+      <% for(var error of errors){ %> 
+        <li><%= error.msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
+
                 </div>
               </div>
           </section>

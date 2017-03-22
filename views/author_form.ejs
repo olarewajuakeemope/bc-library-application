@@ -28,25 +28,67 @@
           <form method="POST" action="">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input class="mdl-textfield__input" type="text" id="first_name" name="first_name" 
-              placeholder="John" value='' required="true">
+              placeholder="John" value=
+
+              <% if(author==0){ %>
+                 ""
+              <% }else{ %>
+                 "<%= author.first_name %>"
+              <% } %>
+
+              required="true">
               <label class="mdl-textfield__label" for="first_name">First Name</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="family_name" name="family_name" placeholder="Thomas" value='' required="true">
+              <input class="mdl-textfield__input" type="text" id="family_name" name="family_name" placeholder="Thomas" value=
+
+              <% if(author==0){ %>
+                 ""
+              <% }else{ %>
+                 "<%= author.family_name %>"
+              <% } %>
+
+               required="true">
               <label class="mdl-textfield__label" for="family_name">Family Name</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="date" id="date_of_birth" name="date_of_birth" value=''>
+              <input class="mdl-textfield__input" type="date"  value=
+
+              <% if(author==0){ %>
+                 ""
+              <% }else{ %>
+                 <%= author.date_of_birth_yyyy_mm_dd %>
+              <% } %>
+
+               id="date_of_birth" name="date_of_birth">
               <div><p>Date of Birth</p></div>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="date" id="date_of_death" name="date_of_death" value=''>
+              <input class="mdl-textfield__input" type="date"  value=
+
+              <% if(author==0){ %>
+                 ""
+              <% }else{ %>
+                 <%= author.date_of_death_yyyy_mm_dd %>
+              <% } %>
+
+
+               id="date_of_death" name="date_of_death">
               <div><p>Date of Death</p></div>
             </div>
             <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
               Submit
             </button>
           </form>
+
+  <% if(errors!=0){ %> 
+    <ul>
+      <% for(var error of errors){ %> 
+        <li><%= error.msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
+
                 </div>
               </div>
           </section>

@@ -31,11 +31,15 @@ exports.bookinstance_detail = function(req, res, next) {
 // Display BookInstance create form on GET
 exports.bookinstance_create_get = function(req, res, next) {
 
+  var selected_book = 0;
+  var errors = 0;
+  var bookinstance = 0;
+
      Book.find({},'title')
     .exec(function (err, books) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('bookinstance_form', {title: 'Create BookInstance', book_list:books } );
+      res.render('bookinstance_form', {title: 'Create BookInstance', bookinstance:bookinstance, book_list:books, selected_book:selected_book, errors:errors } );
     });
 
 };
@@ -112,6 +116,8 @@ exports.bookinstance_delete_post = function(req, res, next) {
 // Display BookInstance update form on GET
 exports.bookinstance_update_get = function(req, res, next) {
 
+  var errors = 0;
+
     req.sanitize('id').escape();
     req.sanitize('id').trim();
 
@@ -127,7 +133,7 @@ exports.bookinstance_update_get = function(req, res, next) {
         }, function(err, results) {
             if (err) { return next(err); }
 
-            res.render('bookinstance_form', { title: 'Update  BookInstance', book_list : results.books, selected_book : results.bookinstance.book._id, bookinstance:results.bookinstance });
+            res.render('bookinstance_form', { title: 'Update  BookInstance', errors : errors, book_list : results.books, selected_book : results.bookinstance.book._id, bookinstance:results.bookinstance });
         });
 
 };

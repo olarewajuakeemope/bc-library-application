@@ -24,16 +24,33 @@
                   <div class="section__circle-container__circle mdl-color--primary"></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Create Category</h5>
+                  <h5><%= title %></h5>
           <form method="POST" action="">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="name" name="name" placeholder="Fantasy, Poetry etc." value='' required="true">
+              <input class="mdl-textfield__input" type="text" id="name" name="name" placeholder="Fantasy, Poetry etc." value=
+
+              <% if(genre==0){ %>
+                 ""
+              <% }else{ %>
+                 "<%= genre.name %>"
+              <% } %>
+
+               required="true">
               <label class="mdl-textfield__label" for="name">Category</label>
             </div>
             <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
               Submit
             </button>
           </form>
+
+  <% if(errors!=0){ %> 
+    <ul>
+      <% for(var error of errors){ %> 
+        <li><%= error.msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
+
                 </div>
               </div>
           </section>

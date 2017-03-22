@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en">
   <head>
-  <title>Authors</title>
+  <title>Books</title>
 
 <% include partials/head.ejs %>
 
@@ -25,10 +25,12 @@
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
                   <% if(book_list){ %>
+                  <ol>
                   <% for (var book of book_list) { %>
-                    <p><a href=<%= book.url %>
-                     > <%= book.title %></a>By <%= book.author.name %></p>
+                    <li><p><a href=<%= book.url %>
+                     > <%= book.title %> </a>By <%= book.author.name %></p></li>
                   <% } %>
+                  </ol>
                 <% }else{ %>
                     <p>There are no books yet</p>
                 <% } %>

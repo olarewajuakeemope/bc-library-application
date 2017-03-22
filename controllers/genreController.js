@@ -42,7 +42,11 @@ exports.genre_detail = function(req, res, next) {
 
 // Display Genre create form on GET
 exports.genre_create_get = function(req, res, next) {
-    res.render('genre_form', { title: 'Create Genre'});
+
+  var genre = 0;
+  var errors = 0;
+
+    res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors });
 };
 
 // Handle Genre create on POST
@@ -150,12 +154,14 @@ exports.genre_delete_post = function(req, res, next) {
 // Display Genre update form on GET
 exports.genre_update_get = function(req, res, next) {
 
+  var errors = 0;
+
     req.sanitize('id').escape();
     req.sanitize('id').trim();
     Genre.findById(req.params.id, function(err, genre) {
         if (err) { return next(err); }
         //On success
-        res.render('genre_form', { title: 'Update Genre', genre: genre });
+        res.render('genre_form', { title: 'Update Genre', genre: genre, errors: errors });
     });
 
 };

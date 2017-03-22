@@ -27,30 +27,72 @@
                   <h5><%= title %></h5>
           <form method="POST" action="">
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="title" name="title" placeholder="Name of Book" value=''>
+              <input class="mdl-textfield__input" value=
+
+              <% if(book==0){ %>
+                 ""
+              <% }else{ %>
+                 "<%= book.title %>"
+              <% } %>
+
+               type="text" id="title" name="title" placeholder="Name of Book">
               <label class="mdl-textfield__label" for="title">Title</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <select class="mdl-textfield__input" placeholder="Select author" type="select" id="title" name="author" required="true">
                 <% for(var author of authors){ %>
-                    <option value=<%= author._id %> ><%= author.name %></option>
+                  <% if(book!=0){ %>
+                    <option selected=
+
+                  <% if(author._id.toString()==book.author._id.toString() || author._id.toString()==book.author){ %>
+                    "selected"
+                  <% }else{ %>
+                    false
+                  <% } %>
+
+                      value=<%= author._id %> ><%= author.name %></option>
+                    <% }else{ %>
+                     <option value=<%= author._id %> ><%= author.name %></option>
+                    <% } %>
                 <% } %>
               </select>
               <label class="mdl-textfield__label" for="author">Author</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="textarea" id="summary" name="summary" value='' required='true'>
+              <input class="mdl-textfield__input" type="textarea" id="summary" name="summary" value=
+
+              <% if(book==0){ %>
+                 ""
+              <% }else{ %>
+                 "<%= book.summary %>"
+              <% } %>
+
+               required='true'>
               <label class="mdl-textfield__label" for="summary">Summary</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" id="isbn" name="isbn" value='' required='true'>
-              <label class="mdl-textfield__label" for="isbn">ISBN</label>
+              <input class="mdl-textfield__input" type="text" id="isbn" name="isbn" value=
+
+              <% if(book==0){ %>
+                 ""
+              <% }else{ %>
+                 <%= book.isbn %>
+              <% } %>
+
+               required='true'>
+              <label class="mdl-textfield__label" for="isbn">Quantity</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-             <p>Category</p>
+             <p>Categories</p>
                 <% for(var genre of genres){ %>
             <label class="fp-follow mdl-switch mdl-js-switch mdl-js-ripple-effect" for=<%= genre._id %>>
-              <input name="genre" type="checkbox" id=<%= genre._id %> class="mdl-switch__input" value=<%= genre._id %>>
+              <input name="genre" type="checkbox" 
+
+              <% if(book!=0){ %>
+                 checked=<%= genre.checked %>
+              <% } %>
+
+               id=<%= genre._id %> class="mdl-switch__input" value=<%= genre._id %>>
               <span class="mdl-switch__label"><%= genre.name %></span>
             </label>
                 <% } %>
@@ -59,6 +101,15 @@
               Submit
             </button>
           </form>
+
+  <% if(errors!=0){ %> 
+    <ul>
+      <% for(var error of errors){ %> 
+        <li><%= error.msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
+
           </section>
             </div>
 
