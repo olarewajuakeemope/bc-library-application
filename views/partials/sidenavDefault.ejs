@@ -13,8 +13,10 @@
             <a class="mdl-navigation__link" href="/catalog/authors" style="border-bottom: 1px solid #555;">Authors</a>
             <a class="mdl-navigation__link" href="/catalog/genres" style="border-bottom: 1px solid #555;">
             Categories</a>
+           <% if(user){ %>
             <a class="mdl-navigation__link" href="/catalog/bookinstances" style="border-bottom: 1px solid #555;">
             Borrowed</a>
+           <% } %>
         <% if(user.isAdmin){ %>
           <a class="mdl-navigation__link" href="/catalog/author/create" style="border-bottom: 1px solid #555;">
           New Author</a>

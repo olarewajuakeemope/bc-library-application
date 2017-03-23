@@ -18,8 +18,10 @@
             Authors(<%= data.author_count %>)</a>
             <a class="mdl-navigation__link" href="/catalog/genres" style="border-bottom: 1px solid #555;">
             Categories(<%= data.genre_count %>)</a>
+           <% if(user){ %>
             <a class="mdl-navigation__link" href="/catalog/bookinstances" style="border-bottom: 1px solid #555;">
             Borrowed</a>
+           <% } %>
           <% } %>
 
         <% if(user.isAdmin){ %>
