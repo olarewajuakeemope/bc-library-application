@@ -73,7 +73,7 @@ exports.book_detail = function(req, res, next) {
     book_instance: function(callback) {
 
       BookInstance.find({ 'book': req.params.id })
-        //.populate('book')
+        .populate('imprint')
         .exec(callback)
     },
   }, function(err, results) {
@@ -175,8 +175,10 @@ exports.book_create_post = function(req, res, next) {
       for (i = 0; i < results.genres.length; i++) {
         if (book.genre.indexOf(results.genres[i]._id) > -1) {
           //console.log('IS_IN_GENRES: '+results.genres[i].name);
-          results.genres[i].checked = 'true';
+          results.genres[i].checked = true;
           //console.log('ADDED: '+results.genres[i]);
+        }else{
+          results.genres[i].checked = false;
         }
       }
 
@@ -293,7 +295,9 @@ exports.book_update_get = function(req, res, next) {
     for (var all_g_iter = 0; all_g_iter < results.genres.length; all_g_iter++) {
       for (var book_g_iter = 0; book_g_iter < results.book.genre.length; book_g_iter++) {
         if (results.genres[all_g_iter]._id.toString() == results.book.genre[book_g_iter]._id.toString()) {
-          results.genres[all_g_iter].checked = 'true';
+          results.genres[all_g_iter].checked = true;
+        }else{
+          results.genres[all_g_iter].checked = false;
         }
       }
     }
@@ -357,7 +361,9 @@ exports.book_update_post = function(req, res, next) {
       // Mark our selected genres as checked
       for (i = 0; i < results.genres.length; i++) {
         if (book.genre.indexOf(results.genres[i]._id) > -1) {
-          results.genres[i].checked = 'true';
+          results.genres[i].checked = true;
+        }else{
+          results.genres[i].checked = false;
         }
       }
       res.render('book_form', { title: 'Update Book', user: user, authors: results.authors, genres: results.genres, book: book, errors: errors });
@@ -381,6 +387,7 @@ exports.book_borrow_get = function(req, res, next) {
   var user;
   var curruser = 0;
   var errors = 0;
+  var url = "/catalog/book/" + req.params.id;
     if (req.user) {
       user = req.user;
     } else {
@@ -404,7 +411,7 @@ exports.book_borrow_get = function(req, res, next) {
 
   Book.findById(req.params.id).exec(function(err, book) {
     if (book.isbn == 0) {
-      res.send("This book is currently unavailable");
+      res.render(url, { title: 'This book currently has no copies in the library', error: err, user: user });
     }
     if (err) {
       return next(err); }

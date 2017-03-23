@@ -89,7 +89,9 @@
               <input name="genre" type="checkbox" 
 
               <% if(book!=0){ %>
-                 checked=<%= genre.checked %>
+                 <% if(genre.checked === true){ %>
+                   checked
+                 <% } %>
               <% } %>
 
                id=<%= genre._id %> class="mdl-switch__input" value=<%= genre._id %>>

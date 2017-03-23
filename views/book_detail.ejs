@@ -55,7 +55,7 @@
                   <div class="section__circle-container__circle mdl-color--primary"></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Book Instances</h5>
+                  <h5>Borrowers</h5>
 
                   <% for (var val of book_instances) { %>
 
@@ -75,8 +75,8 @@
                   <div class="section__circle-container__circle mdl-color--primary"></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Imprint</h5>
-                    <%= val.imprint %>
+                  <h6>Email</h6>
+                    <%= val.imprint.email %>
                 </div>
 
                 <% if(val.status!='Available'){ %>
@@ -84,7 +84,7 @@
                   <div class="section__circle-container__circle mdl-color--primary"></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Due Date</h5>
+                  <h6>Due Date</h6>
                     <%= val.due_back %>
                 </div>
                 <% } %>
@@ -93,9 +93,10 @@
                   <div class="section__circle-container__circle mdl-color--primary"></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>ID</h5>
+                  <h6>ID</h6>
                     <p><a href=<%= val.url %>
                      > <%= val._id %></a></p>
+                     <hr>
                 </div>
 
                 <% } %>
