@@ -52,7 +52,7 @@
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
               <input
 
-          <% if(user.isAdmin != true){ %>
+          <% if((curruser != 0) && (user.isAdmin != true)){ %>
             disabled="disabled" 
           <% } %>
 

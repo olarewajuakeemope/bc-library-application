@@ -47,7 +47,7 @@ exports.user_create_get = function(req, res, next) {
   var errors = 0;
     var user;
     if(req.user){
-       user = req.user;       
+       user = req.user;      
     }else{
        user = 0;
     }
