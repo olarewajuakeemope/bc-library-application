@@ -89,6 +89,7 @@ exports.user_create_post = function(req, res, next) {
 
     user.save(function(err) {
       if (err) {
+        return res.render('user_form', { title: 'User already exists', errors: 0, user: 0, curruser: 0 });
         return next(err);
       }
       //Genre saved. Redirect to genre detail page
