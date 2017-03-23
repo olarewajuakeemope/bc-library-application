@@ -4,26 +4,38 @@ var async = require('async')
 
 // Display list of all BookInstances
 exports.bookinstance_list = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
   BookInstance.find()
     .populate('book')
+    .populate('imprint')
     .exec(function (err, list_bookinstances) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('bookinstance_list', { title: 'Book Instance List', bookinstance_list:  list_bookinstances});
+      res.render('bookinstance_list', { title: 'Book Instance List', user: user, bookinstance_list:  list_bookinstances});
     })
 
 };
 
 // Display detail page for a specific BookInstance
 exports.bookinstance_detail = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     BookInstance.findById(req.params.id)
     .populate('book')
+    .populate('imprint')
     .exec(function (err, bookinstance) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('bookinstance_detail', { title: 'Book:', bookinstance:  bookinstance});
+      res.render('bookinstance_detail', { title: 'Book:', user: user, bookinstance:  bookinstance});
     })
 
 };
@@ -34,19 +46,30 @@ exports.bookinstance_create_get = function(req, res, next) {
   var selected_book = 0;
   var errors = 0;
   var bookinstance = 0;
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
 
      Book.find({},'title')
     .exec(function (err, books) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('bookinstance_form', {title: 'Create BookInstance', bookinstance:bookinstance, book_list:books, selected_book:selected_book, errors:errors } );
+      res.render('bookinstance_form', {title: 'Create BookInstance', user:user, bookinstance:bookinstance, book_list:books, selected_book:selected_book, errors:errors } );
     });
 
 };
 
 // Handle BookInstance create on POST
 exports.bookinstance_create_post = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     req.checkBody('book', 'Book must be specified').notEmpty(); //We won't force Alphanumeric, because people might have spaces.
     req.checkBody('imprint', 'Imprint must be specified').notEmpty();
     req.checkBody('due_back', 'Invalid date').optional({ checkFalsy: true }).isDate();
@@ -73,7 +96,7 @@ exports.bookinstance_create_post = function(req, res, next) {
         .exec(function (err, books) {
           if (err) { return next(err); }
           //Successful, so render
-          res.render('bookinstance_form', { title: 'Create BookInstance', book_list : books, selected_book : bookinstance.book._id , errors: errors, bookinstance:bookinstance });
+          res.render('bookinstance_form', { title: 'Create BookInstance', user : user, book_list : books, selected_book : bookinstance.book._id , errors: errors, bookinstance:bookinstance });
         });
         return;
     }
@@ -91,13 +114,18 @@ exports.bookinstance_create_post = function(req, res, next) {
 
 // Display BookInstance delete form on GET
 exports.bookinstance_delete_get = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     BookInstance.findById(req.params.id)
     .populate('book')
     .exec(function (err, bookinstance) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('bookinstance_delete', { title: 'Delete BookInstance', bookinstance:  bookinstance});
+      res.render('bookinstance_delete', { title: 'Delete BookInstance', user: user, bookinstance:  bookinstance});
     })
 
 };
@@ -131,16 +159,27 @@ exports.bookinstance_update_get = function(req, res, next) {
         },
 
         }, function(err, results) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
             if (err) { return next(err); }
 
-            res.render('bookinstance_form', { title: 'Update  BookInstance', errors : errors, book_list : results.books, selected_book : results.bookinstance.book._id, bookinstance:results.bookinstance });
+            res.render('bookinstance_form', { title: 'Update  BookInstance', user : user, errors : errors, book_list : results.books, selected_book : results.bookinstance.book._id, bookinstance:results.bookinstance });
         });
 
 };
 
 // Handle bookinstance update on POST
 exports.bookinstance_update_post = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     req.sanitize('id').escape();
     req.sanitize('id').trim();
 
@@ -171,7 +210,7 @@ exports.bookinstance_update_post = function(req, res, next) {
         .exec(function (err, books) {
           if (err) { return next(err); }
           //Successful, so render
-          res.render('bookinstance_form', { title: 'Update BookInstance', book_list : books, selected_book : bookinstance.book._id , errors: errors, bookinstance:bookinstance });
+          res.render('bookinstance_form', { title: 'Update BookInstance', user : user, book_list : books, selected_book : bookinstance.book._id , errors: errors, bookinstance:bookinstance });
         });
         return;
     }

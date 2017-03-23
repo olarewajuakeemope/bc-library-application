@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <title><%= title %></title>
+
+<% include partials/head.ejs %>
+
+  </head>
+
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="bc-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+      <% include partials/topnav.ejs %>
+
+      <% include partials/sidenavDefault.ejs %>
+
+        <main class="mdl-layout__content mdl-color--grey-100">
+         <div class="mdl-layout__tab-panel is-active" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col"><%= title %></h4>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+          <form method="POST" action="">
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" id="email" name="email" value=
+
+          <% if(curruser != 0){ %>
+            "<%= curruser.email %>"
+          <% }else{ %>
+            ""
+          <% } %>
+
+               required="true">
+              <label class="mdl-textfield__label" for="email">Email</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="password" value=
+
+          <% if(curruser != 0){ %>
+            "<%= curruser.password %>"
+          <% }else{ %>
+            ""
+          <% } %>
+
+               id="password" name="password" required="true">
+              <label class="mdl-textfield__label" for="password">Password</label>
+            </div>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type=
+
+          <% if(curruser != 0){ %>
+            "text" value=<%= curruser.fee %>
+          <% }else{ %>
+            "hidden" value="0.00 Naira"
+          <% } %>
+
+               id="fee" name="fee" required="true">
+          <% if(curruser != 0){ %>
+              <label class="mdl-textfield__label" for="fee">Fee</label>
+          <% } %>
+            </div>
+            <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+              Submit
+            </button>
+          </form>
+
+  <% if(errors!=0){ %> 
+    <ul>
+      <% for(var error of errors){ %> 
+        <li><%= error.msg %></li>
+      <% } %>
+    </ul>
+  <% } %>
+
+                </div>
+              </div>
+          </section>
+            </div>
+
+        </main>
+    </div>
+
+    <% include partials/scripts.ejs %>
+
+  </body>
+</html>

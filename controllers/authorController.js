@@ -4,13 +4,18 @@ var Book = require('../models/book')
 
 // Display list of all Authors
 exports.author_list = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
   Author.find()
     .sort([['family_name', 'ascending']])
     .exec(function (err, list_authors) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('author_list', { title: 'Author List', author_list:  list_authors});
+      res.render('author_list', { title: 'Author List', user: user, author_list:  list_authors});
     })
 
 };
@@ -28,10 +33,16 @@ exports.author_detail = function(req, res, next) {
           .exec(callback)
         },
     }, function(err, results) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
         if (err) { return next(err); }
         //Successful, so render
 
-        res.render('author_detail', { title: 'Author Detail', author: results.author, author_books: results.authors_books } );
+        res.render('author_detail', { title: 'Author Detail', user: user, author: results.author, author_books: results.authors_books } );
     });
 
 };
@@ -41,13 +52,21 @@ exports.author_create_get = function(req, res, next) {
 
     var author = 0;
     var errors = 0;
-
-    res.render('author_form', { title: 'Create Author', author: author, errors: errors });
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
+    res.render('author_form', { title: 'Create Author', user: user, author: author, errors: errors });
 };
 
 // Handle Author create on POST
 exports.author_create_post = function(req, res, next) {
-
+    var user = 0;
+    if(req.user){
+       user = 1;
+    }
     req.checkBody('first_name', 'First name must be specified.').notEmpty(); //We won't force Alphanumeric, because people might have spaces.
     req.checkBody('family_name', 'Family name must be specified.').notEmpty();
     req.checkBody('family_name', 'Family name must be alphanumeric text.').isAlpha();
@@ -71,7 +90,7 @@ exports.author_create_post = function(req, res, next) {
        });
 
     if (errors) {
-        res.render('author_form', { title: 'Create Author', author: author, errors: errors});
+        res.render('author_form', { title: 'Create Author', user: user, author: author, errors: errors});
     return;
     }
     else {
@@ -98,9 +117,15 @@ exports.author_delete_get = function(req, res, next) {
           Book.find({ 'author': req.params.id }).exec(callback)
         },
     }, function(err, results) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
         if (err) { return next(err); }
         //Successful, so render
-        res.render('author_delete', { title: 'Delete Author', author: results.author, author_books: results.authors_books } );
+        res.render('author_delete', { title: 'Delete Author', user: user, author: results.author, author_books: results.authors_books } );
     });
 
 };
@@ -118,11 +143,17 @@ exports.author_delete_post = function(req, res, next) {
           Book.find({ 'author': req.body.authorid }).exec(callback)
         },
     }, function(err, results) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
         if (err) { return next(err); }
         //Success
         if (results.authors_books>0) {
             //Author has books. Render in same way as for GET route.
-            res.render('author_delete', { title: 'Delete Author', author: results.author, author_books: results.authors_books } );
+            res.render('author_delete', { title: 'Delete Author', user: user, author: results.author, author_books: results.authors_books } );
             return;
         }
         else {
@@ -142,20 +173,30 @@ exports.author_delete_post = function(req, res, next) {
 exports.author_update_get = function(req, res, next) {
 
     var errors = 0;
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     req.sanitize('id').escape();
     req.sanitize('id').trim();
     Author.findById(req.params.id, function(err, author) {
         if (err) { return next(err); }
         //On success
-        res.render('author_form', { title: 'Update Author', author: author, errors: errors });
+        res.render('author_form', { title: 'Update Author', user: user, author: author, errors: errors });
 
     });
 };
 
 // Handle Author update on POST
 exports.author_update_post = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     req.sanitize('id').escape();
     req.sanitize('id').trim();
 
@@ -187,7 +228,7 @@ exports.author_update_post = function(req, res, next) {
 
     if (errors) {
         //If there are errors render the form again, passing the previously entered values and errors
-        res.render('author_form', { title: 'Update Author', author: author, errors: errors});
+        res.render('author_form', { title: 'Update Author', user: user, author: author, errors: errors});
     return;
     }
     else {

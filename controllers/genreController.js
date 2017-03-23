@@ -5,13 +5,18 @@ var async = require('async')
 
 // Display list of all Genre
 exports.genre_list = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
   Genre.find()
     .sort([['name', 'ascending']])
     .exec(function (err, list_genres) {
       if (err) { return next(err); }
       //Successful, so render
-      res.render('genre_list', { title: 'Genre List', list_genres:  list_genres});
+      res.render('genre_list', { title: 'Genre List', user: user, list_genres:  list_genres});
     })
 
 };
@@ -32,10 +37,16 @@ exports.genre_detail = function(req, res, next) {
         },
 
     }, function(err, results) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
         if (err) { return next(err); }
         //Successful, so render
 
-        res.render('genre_detail', { title: 'Genre Detail', genre: results.genre, genre_books: results.genre_books } );
+        res.render('genre_detail', { title: 'Genre Detail', user: user, genre: results.genre, genre_books: results.genre_books } );
     });
 
 };
@@ -45,13 +56,24 @@ exports.genre_create_get = function(req, res, next) {
 
   var genre = 0;
   var errors = 0;
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
 
-    res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors });
+    res.render('genre_form', { title: 'Create Genre', user: user, genre: genre, errors: errors });
 };
 
 // Handle Genre create on POST
 exports.genre_create_post = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     //Check that the name field is not empty
     req.checkBody('name', 'Genre name required').notEmpty();
 
@@ -70,7 +92,7 @@ exports.genre_create_post = function(req, res, next) {
 
     if (errors) {
         //If there are errors render the form again, passing the previously entered values and errors
-        res.render('genre_form', { title: 'Create Genre', genre: genre, errors: errors});
+        res.render('genre_form', { title: 'Create Genre', user: user, genre: genre, errors: errors});
     return;
     }
     else {
@@ -111,9 +133,15 @@ exports.genre_delete_get = function(req, res, next) {
             Book.find({ 'genre': req.params.id }).exec(callback)
         },
     }, function(err, results) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
         if (err) { return next(err); }
         //Successful, so render
-        res.render('genre_delete', { title: 'Delete Genre', genre: results.genre, genre_books: results.genre_books } );
+        res.render('genre_delete', { title: 'Delete Genre', user: user, genre: results.genre, genre_books: results.genre_books } );
     });
 
 };
@@ -131,11 +159,17 @@ exports.genre_delete_post = function(req, res, next) {
             Book.find({ 'genre': req.params.id }).exec(callback)
         },
     }, function(err, results) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
         if (err) { return next(err); }
         //Success
         if (results.genre_books>0) {
             //Genre has books. Render in same way as for GET route.
-            res.render('genre_delete', { title: 'Delete Genre', genre: results.genre, genre_books: results.genre_books } );
+            res.render('genre_delete', { title: 'Delete Genre', user: user, genre: results.genre, genre_books: results.genre_books } );
             return;
         }
         else {
@@ -153,7 +187,12 @@ exports.genre_delete_post = function(req, res, next) {
 
 // Display Genre update form on GET
 exports.genre_update_get = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
   var errors = 0;
 
     req.sanitize('id').escape();
@@ -161,14 +200,19 @@ exports.genre_update_get = function(req, res, next) {
     Genre.findById(req.params.id, function(err, genre) {
         if (err) { return next(err); }
         //On success
-        res.render('genre_form', { title: 'Update Genre', genre: genre, errors: errors });
+        res.render('genre_form', { title: 'Update Genre', user: user, genre: genre, errors: errors });
     });
 
 };
 
 // Handle Genre update on POST
 exports.genre_update_post = function(req, res, next) {
-
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
     req.sanitize('id').escape();
     req.sanitize('id').trim();
     //Check that the name field is not empty
@@ -190,7 +234,7 @@ exports.genre_update_post = function(req, res, next) {
 
     if (errors) {
         //If there are errors render the form again, passing the previously entered values and errors
-        res.render('genre_form', { title: 'Update Genre', genre: genre, errors: errors});
+        res.render('genre_form', { title: 'Update Genre', user: user, genre: genre, errors: errors});
     return;
     }
     else {

@@ -11,9 +11,17 @@
               <label class="mdl-textfield__label" for="search">Enter your query...</label>
             </div>
           </div>
-                   <button type="submit" 
-                     class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Login</button>
-                   <button type="submit" 
-                     class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Signup</button>
+          <% if(user==0){ %>
+              <a href="/catalog/user/login" 
+                class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                Login</a>
+              <a href="/catalog/user/create"
+                class="signup-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                Signup</a>
+          <% }else{ %>
+              <a href="/catalog/user/logout"
+                class="signup-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                Logout</a>
+          <% } %>
         </div>
       </header>

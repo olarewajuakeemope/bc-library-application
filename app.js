@@ -4,23 +4,16 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-// var firebase = require("firebase-admin");
+var passport = require('passport');
+var LocalStrategy = require('passport-local').Strategy;
 var expressValidator = require('express-validator');
+var session = require('express-session');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
 var catalog = require('./routes/catalog');
 var compression = require('compression');
 var helmet = require('helmet');
-
-// var serviceAccount = require("./libapp-1d721-firebase-adminsdk-paci0-afb92e4cf4");
-
-// firebase.initializeApp({
-//   credential: firebase.credential.cert(serviceAccount),
-//   databaseURL: "https://libapp-1d721.firebaseio.com"
-// });
-
-// console.log(firebase);
 
 var app = express();
 
@@ -45,12 +38,52 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(expressValidator());
 app.use(cookieParser());
 
+app.use(session({ secret: 'grant', resave: true, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+
+var User = require('./models/user')
+passport.use('local', new LocalStrategy({usernameField: 'email'},
+  function(email, password, done) {
+    User.findOne({ email: email }, function(err, user) {
+      if (err) { return done(err); }
+      if (!user) {
+        return done(null, false, { message: 'Incorrect email.' });
+      }
+      if (user.password != password) {
+        return done(null, false, { message: 'Incorrect password.' });
+      }
+      return done(null, user);
+    });
+  }
+));
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+
 app.use(compression()); //Compress all routes
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
 app.use('/users', users);
 app.use('/catalog', catalog);
+
+
+app.post('/catalog/user/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) { return next(err); }
+    if (!user) { return res.render('user_form', { title: 'Invalid Login Details', errors: 0, user: 0, curruser: 0 }); }
+    req.logIn(user, function(err) {
+      if (err) { return next(err); }
+      return res.redirect('/');
+    });
+  })(req, res, next);
+});
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

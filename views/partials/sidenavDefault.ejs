@@ -1,22 +1,24 @@
       <div class="bc-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+          <% if(user){ %>
         <header class="bc-drawer-header">
           <img src="/images/user.jpg" class="bc-avatar">
           <div class="bc-avatar-dropdown">
-            <span>hello@example.com</span>
-          </div>
-        </header>
+            <span><%= user.email %></span>
+            </div>
+           </header>
+          <% } %>
         <nav class="bc-navigation mdl-navigation mdl-color--blue-grey-800">
-          <a class="mdl-navigation__link" href="/catalog"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
-            <a class="mdl-navigation__link" href="/catalog/books"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Books</a>
-            <a class="mdl-navigation__link" href="/catalog/authors"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Authors</a>
-            <a class="mdl-navigation__link" href="/catalog/genres"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Categories</a>
-            <a class="mdl-navigation__link" href="/catalog/bookinstances"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Instances</a>
-            <a class="mdl-navigation__link" href="/catalog/bookinstances"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>Available</a>
-          <a class="mdl-navigation__link" href="/catalog/author/create"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">flag</i>New Author</a>
-          <a class="mdl-navigation__link" href="/catalog/genre/create"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_offer</i>New Genre</a>
-          <a class="mdl-navigation__link" href="/catalog/book/create"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">shopping_cart</i>New Book</a>
-          <a class="mdl-navigation__link" href="/catalog/bookinstance/create"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">people</i>New Instance</a>
+          <a class="mdl-navigation__link" href="/catalog" style="border-bottom: 1px solid #555;">Home</a>
+            <a class="mdl-navigation__link" href="/catalog/books" style="border-bottom: 1px solid #555;">Books</a>
+            <a class="mdl-navigation__link" href="/catalog/authors" style="border-bottom: 1px solid #555;">Authors</a>
+            <a class="mdl-navigation__link" href="/catalog/genres" style="border-bottom: 1px solid #555;">Categories</a>
+            <a class="mdl-navigation__link" href="/catalog/bookinstances" style="border-bottom: 1px solid #555;">
+            Borrowed</a>
+        <% if(user.isAdmin){ %>
+          <a class="mdl-navigation__link" href="/catalog/author/create" style="border-bottom: 1px solid #555;">New Author</a>
+          <a class="mdl-navigation__link" href="/catalog/genre/create" style="border-bottom: 1px solid #555;">New Genre</a>
+          <a class="mdl-navigation__link" href="/catalog/book/create" style="border-bottom: 1px solid #555;">New Book</a>
+        <% } %>
           <div class="mdl-layout-spacer"></div>
-          <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
         </nav>
       </div>

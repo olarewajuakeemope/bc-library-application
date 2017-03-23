@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 
 var BookInstanceSchema = Schema({
     book: { type: Schema.ObjectId, ref: 'Book', required: true }, //reference to the associated book
-    imprint: {type: String, required: true},
+    imprint: {type: Schema.ObjectId, ref: 'User', required: true},
     status: {type: String, required: true, enum:['Available', 'Maintenance', 'Loaned', 'Reserved'], default:'Maintenance'},
     due_back: { type: Date, default: Date.now },
 });
