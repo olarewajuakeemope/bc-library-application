@@ -11,13 +11,17 @@
           <a class="mdl-navigation__link" href="/catalog" style="border-bottom: 1px solid #555;">Home</a>
             <a class="mdl-navigation__link" href="/catalog/books" style="border-bottom: 1px solid #555;">Books</a>
             <a class="mdl-navigation__link" href="/catalog/authors" style="border-bottom: 1px solid #555;">Authors</a>
-            <a class="mdl-navigation__link" href="/catalog/genres" style="border-bottom: 1px solid #555;">Categories</a>
+            <a class="mdl-navigation__link" href="/catalog/genres" style="border-bottom: 1px solid #555;">
+            Categories</a>
             <a class="mdl-navigation__link" href="/catalog/bookinstances" style="border-bottom: 1px solid #555;">
             Borrowed</a>
         <% if(user.isAdmin){ %>
-          <a class="mdl-navigation__link" href="/catalog/author/create" style="border-bottom: 1px solid #555;">New Author</a>
-          <a class="mdl-navigation__link" href="/catalog/genre/create" style="border-bottom: 1px solid #555;">New Genre</a>
-          <a class="mdl-navigation__link" href="/catalog/book/create" style="border-bottom: 1px solid #555;">New Book</a>
+          <a class="mdl-navigation__link" href="/catalog/author/create" style="border-bottom: 1px solid #555;">
+          New Author</a>
+          <a class="mdl-navigation__link" href="/catalog/genre/create" style="border-bottom: 1px solid #555;">
+          New Category</a>
+          <a class="mdl-navigation__link" href="/catalog/book/create" style="border-bottom: 1px solid #555;">
+          New Book</a>
         <% } %>
           <div class="mdl-layout-spacer"></div>
         </nav>

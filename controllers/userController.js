@@ -149,10 +149,32 @@ exports.user_update_get = function(req, res, next) {
     User.findById(req.params.id, function(err, curruser) {
         if (err) { return next(err); }
         //On success
+        console.log(curruser.isAdmin);
         res.render('user_form', { title: 'Update User', errors: errors, user: user, curruser: curruser });
     });
 };
 
 exports.user_update_post = function(req, res, next) {
+    var user;
+    if(req.user){
+       user = req.user;       
+    }else{
+       user = 0;
+    }
+
+    var theUser = new User(
+      { email: req.body.email,
+        password: req.body.password,
+        fee: req.body.fee,
+        isAdmin: req.body.isAdmin,
+        _id: req.params.id
+       });
+
+        // Data from form is valid
+        User.findByIdAndUpdate(req.params.id, theUser, {}, function (err,theNewUser) {
+            if (err) { return next(err); }
+               //successful - redirect to genre detail page.
+               res.redirect(theNewUser.url);
+       });
 
 };

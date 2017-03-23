@@ -50,10 +50,16 @@
               <label class="mdl-textfield__label" for="password">Password</label>
             </div>
             <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type=
+              <input
+
+          <% if(user.isAdmin != true){ %>
+            disabled="disabled" 
+          <% } %>
+
+               class="mdl-textfield__input" type=
 
           <% if(curruser != 0){ %>
-            "text" value=<%= curruser.fee %>
+            "text" value="<%= curruser.fee %>"
           <% }else{ %>
             "hidden" value="0.00 Naira"
           <% } %>
@@ -61,6 +67,8 @@
                id="fee" name="fee" required="true">
           <% if(curruser != 0){ %>
               <label class="mdl-textfield__label" for="fee">Fee</label>
+              <input class="mdl-textfield__input" type="hidden" id="isAdmin" name="isAdmin" 
+              value=<%= curruser.isAdmin %>  >
           <% } %>
             </div>
             <button id="submit" type="submit" class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">

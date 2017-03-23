@@ -33,7 +33,7 @@ router.get('/book/:id/update', user_controller.user_access, user_controller.user
 router.post('/book/:id/update', user_controller.user_access, user_controller.user_admin, book_controller.book_update_post);
 
 /* GET request for one Book. */
-router.get('/book/:id', book_controller.book_detail);
+router.get('/book/:id', user_controller.user_access, book_controller.book_detail);
 
 /* GET request for list of all Book. */
 router.get('/books', book_controller.book_list);
