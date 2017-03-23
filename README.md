@@ -23,3 +23,5 @@ This is a Library Application mimmicking a local Library. The application has th
 18. An admin can modify books
 19. An admin can modify user details
 20. An admin can delete a borrowed instance
+21. A user can borrow multiple books
+22. A user is guarded from using an already existing email
