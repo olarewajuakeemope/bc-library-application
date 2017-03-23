@@ -35,7 +35,7 @@ exports.user_admin = function(req, res, next) {
     if(req.user.isAdmin){
        next();       
     }else{
-       res.send("<div><h2>You are not authorized to view this page</h2><p><a href='/'>Home</a></p></div>");;
+       res.send("<div><h2>You are not authorized to view this page</h2><p><a href='/'>Home</a></p></div>");
     }
 
 };
