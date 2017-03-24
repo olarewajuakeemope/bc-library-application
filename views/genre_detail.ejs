@@ -15,6 +15,16 @@
       <% include partials/sidenavDefault.ejs %>
 
         <main class="mdl-layout__content mdl-color--grey-100">
+                <% if(user!=0){ %>
+                  <% if(user.isAdmin){ %>
+                    <div class="mdl-card__actions">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= genre.url+'/update' %>
+                        >Update</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= genre.url+'/delete' %>
+                        >Delete</a>
+                    </div>
+                  <% } %>
+               <% } %>
          <div class="mdl-layout__tab-panel is-active" id="overview">
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
@@ -34,16 +44,7 @@
                     <p>This category has no books</p>
                   <% } %>
                 </div>
-                <% if(user!=0){ %>
-                  <% if(user.isAdmin){ %>
-                    <div class="mdl-card__actions">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= genre.url+'/update' %>
-                        >Update</a>
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= genre.url+'/delete' %>
-                        >Delete</a>
-                    </div>
-                  <% } %>
-               <% } %>
+
               </div>
           </section>
             </div>

@@ -15,6 +15,12 @@
       <% include partials/sidenavDefault.ejs %>
 
         <main class="mdl-layout__content mdl-color--grey-100">
+                <% if (user.isAdmin){ %>
+                    <div class="mdl-card__actions mdl-card--border">
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= bookinstance.url+'/delete' %>
+                        >Delete</a>
+                    </div>
+                <% } %>
          <div class="mdl-layout__tab-panel is-active" id="overview">
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
@@ -55,12 +61,7 @@
                     <%= bookinstance.due_back_formatted %>
                 </div>
                 <% } %>
-                <% if (user.isAdmin){ %>
-                    <div class="mdl-card__actions mdl-card--border">
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= bookinstance.url+'/delete' %>
-                        >Delete</a>
-                    </div>
-                <% } %>
+
                 </div>
 
               </div>
