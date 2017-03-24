@@ -8,12 +8,12 @@ var async = require('async')
 exports.user_detail = function(req, res, next) {
   var curruser = 0;
   var errors = 0;
-    var user;
-    if(req.user){
-       user = req.user;       
-    }else{
-       user = 0;
-    }
+  var user;
+  if (req.user) {
+    user = req.user;
+  } else {
+    user = 0;
+  }
   res.render('user_form', { title: 'Sign Up', user: user, errors: errors, curruser: curruser });
 
 };
@@ -21,22 +21,22 @@ exports.user_detail = function(req, res, next) {
 // Control Page Access
 exports.user_access = function(req, res, next) {
 
-    if(req.user){
-       next();       
-    }else{
-       res.redirect('/catalog/user/login');;
-    }
+  if (req.user) {
+    next();
+  } else {
+    res.redirect('/catalog/user/login');;
+  }
 
 };
 
 // Control Page Access
 exports.user_admin = function(req, res, next) {
 
-    if(req.user.isAdmin){
-       next();       
-    }else{
-       res.send("<div><h2>You are not authorized to view this page</h2><p><a href='/'>Home</a></p></div>");
-    }
+  if (req.user.isAdmin) {
+    next();
+  } else {
+    res.send("<div><h2>You are not authorized to view this page</h2><p><a href='/'>Home</a></p></div>");
+  }
 
 };
 
@@ -45,24 +45,24 @@ exports.user_admin = function(req, res, next) {
 exports.user_create_get = function(req, res, next) {
   var curruser = 0;
   var errors = 0;
-    var user;
-    if(req.user){
-       user = req.user;      
-    }else{
-       user = 0;
-    }
+  var user;
+  if (req.user) {
+    user = req.user;
+  } else {
+    user = 0;
+  }
   res.render('user_form', { title: 'Sign Up', user: user, errors: errors, curruser: curruser });
 };
 
 // Handle Genre create on POST
 exports.user_create_post = function(req, res, next) {
-    var curruser = 0;
-    var user;
-    if(req.user){
-       user = req.user;       
-    }else{
-       user = 0;
-    }
+  var curruser = 0;
+  var user;
+  if (req.user) {
+    user = req.user;
+  } else {
+    user = 0;
+  }
   //Check that the name field is not empty
   req.checkBody('email', 'Email is required').notEmpty();
 
@@ -103,12 +103,12 @@ exports.user_login_get = function(req, res, next) {
 
   var curruser = 0;
   var errors = 0;
-    var user;
-    if(req.user){
-       user = req.user;       
-    }else{
-       user = 0;
-    }
+  var user;
+  if (req.user) {
+    user = req.user;
+  } else {
+    user = 0;
+  }
   res.render('user_form', { title: 'Log in', errors: errors, user: user, curruser: curruser });
 
 };
@@ -122,60 +122,63 @@ exports.user_logout_get = function(req, res, next) {
 };
 
 exports.user_detail = function(req, res, next) {
-    var user;
-    if(req.user){
-       user = req.user;       
-    }else{
-       user = 0;
-    }
-    User.findById(req.params.id)
-    .exec(function (err, curruser) {
-      if (err) { return next(err); }
+  var user;
+  if (req.user) {
+    user = req.user;
+  } else {
+    user = 0;
+  }
+  User.findById(req.params.id)
+    .exec(function(err, curruser) {
+      if (err) {
+        return next(err); }
       //Successful, so render
-      res.render('user_detail', { user: user, curruser:  curruser});
+      res.render('user_detail', { user: user, curruser: curruser });
     })
 };
 
 exports.user_update_get = function(req, res, next) {
-    var user;
-    if(req.user){
-       user = req.user;       
-    }else{
-       user = 0;
-    }
+  var user;
+  if (req.user) {
+    user = req.user;
+  } else {
+    user = 0;
+  }
   var errors = 0;
 
-    req.sanitize('id').escape();
-    req.sanitize('id').trim();
-    User.findById(req.params.id, function(err, curruser) {
-        if (err) { return next(err); }
-        //On success
-        console.log(curruser.isAdmin);
-        res.render('user_form', { title: 'Update User', errors: errors, user: user, curruser: curruser });
-    });
+  req.sanitize('id').escape();
+  req.sanitize('id').trim();
+  User.findById(req.params.id, function(err, curruser) {
+    if (err) {
+      return next(err); }
+    //On success
+    console.log(curruser.isAdmin);
+    res.render('user_form', { title: 'Update User', errors: errors, user: user, curruser: curruser });
+  });
 };
 
 exports.user_update_post = function(req, res, next) {
-    var user;
-    if(req.user){
-       user = req.user;       
-    }else{
-       user = 0;
-    }
+  var user;
+  if (req.user) {
+    user = req.user;
+  } else {
+    user = 0;
+  }
 
-    var theUser = new User(
-      { email: req.body.email,
-        password: req.body.password,
-        fee: req.body.fee,
-        isAdmin: req.body.isAdmin,
-        _id: req.params.id
-       });
+  var theUser = new User({
+    email: req.body.email,
+    password: req.body.password,
+    fee: req.body.fee,
+    isAdmin: req.body.isAdmin,
+    _id: req.params.id
+  });
 
-        // Data from form is valid
-        User.findByIdAndUpdate(req.params.id, theUser, {}, function (err,theNewUser) {
-            if (err) { return next(err); }
-               //successful - redirect to genre detail page.
-               res.redirect(theNewUser.url);
-       });
+  // Data from form is valid
+  User.findByIdAndUpdate(req.params.id, theUser, {}, function(err, theNewUser) {
+    if (err) {
+      return next(err); }
+    //successful - redirect to genre detail page.
+    res.redirect(theNewUser.url);
+  });
 
 };

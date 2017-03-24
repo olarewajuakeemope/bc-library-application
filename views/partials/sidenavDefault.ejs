@@ -1,23 +1,23 @@
       <div class="bc-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
-          <% if(user){ %>
+       <% if(user){ %>
         <header class="bc-drawer-header">
           <img src="/images/user.jpg" class="bc-avatar">
           <div class="bc-avatar-dropdown">
             <span><%= user.email %></span>
             </div>
            </header>
-          <% } %>
-        <nav class="bc-navigation mdl-navigation mdl-color--blue-grey-800">
+       <% } %>
+       <nav class="bc-navigation mdl-navigation mdl-color--blue-grey-800">
           <a class="mdl-navigation__link" href="/catalog" style="border-bottom: 1px solid #555;">Home</a>
             <a class="mdl-navigation__link" href="/catalog/books" style="border-bottom: 1px solid #555;">Books</a>
             <a class="mdl-navigation__link" href="/catalog/authors" style="border-bottom: 1px solid #555;">Authors</a>
             <a class="mdl-navigation__link" href="/catalog/genres" style="border-bottom: 1px solid #555;">
             Categories</a>
-           <% if(user){ %>
-            <a class="mdl-navigation__link" href="/catalog/bookinstances" style="border-bottom: 1px solid #555;">
-            Borrowed</a>
-           <% } %>
-        <% if(user.isAdmin){ %>
+            <% if(user){ %>
+             <a class="mdl-navigation__link" href="/catalog/bookinstances" style="border-bottom: 1px solid #555;">
+             Borrowed</a>
+            <% } %>
+         <% if(user.isAdmin){ %>
           <a class="mdl-navigation__link" href="/catalog/author/create" style="border-bottom: 1px solid #555;">
           New Author</a>
           <a class="mdl-navigation__link" href="/catalog/genre/create" style="border-bottom: 1px solid #555;">
@@ -26,5 +26,5 @@
           New Book</a>
         <% } %>
           <div class="mdl-layout-spacer"></div>
-        </nav>
+      </nav>
       </div>
