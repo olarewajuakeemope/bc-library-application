@@ -89,6 +89,7 @@ app.post('/catalog/user/login', function(req, res, next) {
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
+  res.send("<h2 style='text-align: center;'>This page does not exist</h2><p style='text-align: center;'><a href='/'>Home</a></p>");
   next(err);
 });
 

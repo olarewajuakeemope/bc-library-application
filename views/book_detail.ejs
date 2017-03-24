@@ -15,6 +15,17 @@
       <% include partials/sidenavDefault.ejs %>
 
         <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-card__actions mdl-card--border">
+                      <% if (user.isAdmin){ %>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/delete' %>
+                        >Delete</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/update' %>
+                        >Update</a>
+                      <% }else{ %>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/borrow' %>
+                        >Borrow</a>
+                      <% } %>
+                    </div>
          <div class="mdl-layout__tab-panel is-active" id="overview">
           <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
             <div class="mdl-card mdl-cell mdl-cell--12-col">
@@ -55,7 +66,7 @@
                   <div class="section__circle-container__circle mdl-color--primary"></div>
                 </div>
                 <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
-                  <h5>Borrowers</h5>
+                  <h5>Loans</h5>
 
                   <% for (var val of book_instances) { %>
 
@@ -101,17 +112,7 @@
 
                 <% } %>
                 </div>
-                <div class="mdl-card__actions mdl-card--border">
-                      <% if (user.isAdmin){ %>
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/delete' %>
-                        >Delete</a>
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/update' %>
-                        >Update</a>
-                      <% }else{ %>
-                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/borrow' %>
-                        >Borrow</a>
-                      <% } %>
-                    </div>
+
               </div>
           </section>
             </div>
