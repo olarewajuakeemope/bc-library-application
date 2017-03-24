@@ -1,12 +1,12 @@
 # bc-library-application
 Final project for Andela bootcamp 20
 
-This is a Library Application for a local Library. It is built using the following technologies:
+# This is a Library Application for a local Library. It is built using the following technologies:
 1. Nodejs Express module to handle the application's routing.
 2. Mongoose DB is used to store the application's data.
 3. Material Design Lite (MDL) is used to design the application's interface.
 
-To run the app locally, follow the following steps:
+# To run the app locally, follow the following steps:
 1. Clone or download the application to your local device
 2. Run npm install from the root directory
 3. Start the application br running: SET DEBUG=LibApp:* & npm run devstart
@@ -14,7 +14,7 @@ To run the app locally, follow the following steps:
    email: admin@gmail.com
    password: password
 
-The application has the following features:
+# The application has the following features:
 
 1. A user can signup
 2. A user can login
@@ -40,8 +40,4 @@ The application has the following features:
 22. A user is guarded from using an already existing email
 23. A user is blocked from accessing unauthorized pages
 24. A user is guarded from borrowing a book that out of stock
-<<<<<<< HEAD
 25. Admin can update borrowed instance
-=======
-25. A user recieves mail notification on borrow for 7 days
->>>>>>> bdecdcc... add mailing feature
