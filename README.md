@@ -32,3 +32,4 @@ The application has the following features:
 22. A user is guarded from using an already existing email
 23. A user is blocked from accessing unauthorized pages
 24. A user is guarded from borrowing a book that out of stock
+25. Admin can update borrowed instance
