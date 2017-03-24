@@ -32,3 +32,4 @@ The application has the following features:
 22. A user is guarded from using an already existing email
 23. A user is blocked from accessing unauthorized pages
 24. A user is guarded from borrowing a book that out of stock
+25. A user recieves mail notification on borrow for 7 days
