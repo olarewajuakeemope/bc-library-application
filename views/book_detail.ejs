@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <title><%= book.title %></title>
+
+<% include partials/head.ejs %>
+
+  </head>
+
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="bc-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+      <% include partials/topnav.ejs %>
+
+      <% include partials/sidenavDefault.ejs %>
+
+        <main class="mdl-layout__content mdl-color--grey-100">
+                <div class="mdl-card__actions mdl-card--border">
+                      <% if (user.isAdmin){ %>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/delete' %>
+                        >Delete</a>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/update' %>
+                        >Update</a>
+                      <% }else{ %>
+                        <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect mdl-button--accent" href=<%= book.url+'/borrow' %>
+                        >Borrow</a>
+                      <% } %>
+                    </div>
+         <div class="mdl-layout__tab-panel is-active" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col"><%= book.title %></h4>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                    <p><a href=<%= book.author.url %> > By <%= book.author.name %></a></p>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Summary</h5>
+                  <%= book.summary %>.
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Quantity</h5>
+                  <%= book.isbn %>
+                </div>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Categories</h5>
+                  <% for (var val of book.genre) { %>
+                    <p><a href=<%= val.url %>
+                     > <%= val.name %></a></p>
+                  <% } %>
+                </div>
+
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5>Loans</h5>
+
+                  <% for (var val of book_instances) { %>
+
+                  <% if(book_instances){ %>
+                  <% if(val.status=='Available'){ %>
+                    <p class="text-success"><%= val.status %></p>
+                <% }else if(val.status=='Maintenance'){ %>
+                    <p class="text-warning"><%= val.status %></p>
+                <% }else{ %>
+                    <p class="text-danger"><%= val.status %></p>
+                 <% } %>
+                <% }else{ %>
+                    <p>There are no copies of this book in the Library</p>
+                 <% } %>
+
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h6>Email</h6>
+                    <%= val.imprint.email %>
+                </div>
+
+                <% if(val.status!='Available'){ %>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h6>Due Date</h6>
+                    <%= val.due_back %>
+                </div>
+                <% } %>
+
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h6>ID</h6>
+                    <p><a href=<%= val.url %>
+                     > <%= val._id %></a></p>
+                     <hr>
+                </div>
+
+                <% } %>
+                </div>
+
+              </div>
+          </section>
+            </div>
+
+        </main>
+    </div>
+
+    <% include partials/scripts.ejs %>
+
+  </body>
+</html>

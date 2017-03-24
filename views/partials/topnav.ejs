@@ -1,0 +1,19 @@
+      <header class="bc-header mdl-layout__header mdl-color--grey-100 mdl-color-text--grey-600">
+        <div class="mdl-layout__header-row">
+          <span class="mdl-layout-title">My Local Library</span>
+          <div class="mdl-layout-spacer"></div>
+
+          <% if(user==0){ %>
+              <a href="/catalog/user/login" 
+                class="login-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                Login</a>
+              <a href="/catalog/user/create"
+                class="signup-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                Signup</a>
+          <% }else{ %>
+              <a href="/catalog/user/logout"
+                class="signup-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">
+                Logout</a>
+          <% } %>
+        </div>
+      </header>

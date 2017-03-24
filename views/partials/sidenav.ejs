@@ -1,0 +1,37 @@
+      <div class="bc-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
+          <% if(user){ %>
+        <header class="bc-drawer-header">
+          <img src="/images/user.jpg" class="bc-avatar">
+          <div class="bc-avatar-dropdown">
+            <span><%= user.email %></span>
+            </div>
+           </header>
+          <% } %>
+        <nav class="bc-navigation mdl-navigation mdl-color--blue-grey-800">
+          <a class="mdl-navigation__link" href="/catalog" style="border-bottom: 1px solid #555;">Home</a>
+          <% if(error){ %>
+            <span class="mdl-layout-title">Error getting dynamic content</span>
+          <% }else{ %>
+            <a class="mdl-navigation__link" href="/catalog/books" style="border-bottom: 1px solid #555;">
+            Books(<%= data.book_count %>)</a>
+            <a class="mdl-navigation__link" href="/catalog/authors" style="border-bottom: 1px solid #555;">
+            Authors(<%= data.author_count %>)</a>
+            <a class="mdl-navigation__link" href="/catalog/genres" style="border-bottom: 1px solid #555;">
+            Categories(<%= data.genre_count %>)</a>
+           <% if(user){ %>
+            <a class="mdl-navigation__link" href="/catalog/bookinstances" style="border-bottom: 1px solid #555;">
+            Borrowed</a>
+           <% } %>
+          <% } %>
+
+        <% if(user.isAdmin){ %>
+          <a class="mdl-navigation__link" href="/catalog/author/create" style="border-bottom: 1px solid #555;">
+          New Author</a>
+          <a class="mdl-navigation__link" href="/catalog/genre/create" style="border-bottom: 1px solid #555;">
+          New Category</a>
+          <a class="mdl-navigation__link" href="/catalog/book/create" style="border-bottom: 1px solid #555;">
+          New Book</a>
+        <% } %>
+          <div class="mdl-layout-spacer"></div>
+        </nav>
+      </div>

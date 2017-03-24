@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+  <title>Delete Genre</title>
+
+<% include partials/head.ejs %>
+
+  </head>
+
+  <body class="mdl-demo mdl-color--grey-100 mdl-color-text--grey-700 mdl-base">
+    <div class="bc-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+
+      <% include partials/topnav.ejs %>
+
+      <% include partials/sidenavDefault.ejs %>
+
+        <main class="mdl-layout__content mdl-color--grey-100">
+         <div class="mdl-layout__tab-panel is-active" id="overview">
+          <section class="section--center mdl-grid mdl-grid--no-spacing mdl-shadow--2dp">
+            <div class="mdl-card mdl-cell mdl-cell--12-col">
+              <div class="mdl-card__supporting-text mdl-grid mdl-grid--no-spacing">
+                <h4 class="mdl-cell mdl-cell--12-col"><%= genre.name %></h4>
+                <div class="section__circle-container mdl-cell mdl-cell--2-col mdl-cell--1-col-phone">
+                  <div class="section__circle-container__circle mdl-color--primary"></div>
+                </div>
+                <div class="section__text mdl-cell mdl-cell--10-col-desktop mdl-cell--6-col-tablet mdl-cell--3-col-phone">
+                  <h5><%= genre.name %></h5>
+                <% if (genre_books.length){ %>
+                  <strong>Delete the following books before attempting to delete this genre.</strong>
+                  <h4>Books</h4>
+                  <dl>
+                    <% for (var book of genre_books){ %>
+                      <dt><a href=<%= book.url %> ><%= book.title %></a></dt>
+                      <dd><%= book.summary %></dd>
+                    <% } %>
+                  </dl>
+                <% }else{ %>
+                  <p>Do you really want to delete this Genre? <em><%= genre.name %></em></p>
+                <div class="mdl-card__actions">
+                  <form method="POST" action="">
+                   <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+                    <input class="mdl-textfield__input" type="hidden" name="id" 
+                    value=<%= genre._id %> required="true">
+                   </div>
+                   <button type="submit" 
+                   class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect">Delete</button>
+                  </form>
+                  </div>
+                <% } %>
+                </div>
+              </div>
+          </section>
+            </div>
+
+        </main>
+    </div>
+
+    <% include partials/scripts.ejs %>
+
+  </body>
+</html>
