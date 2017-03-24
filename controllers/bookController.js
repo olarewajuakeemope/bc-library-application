@@ -3,7 +3,7 @@ var Author = require('../models/author')
 var Genre = require('../models/genre')
 var BookInstance = require('../models/bookinstance')
 var nodemailer = require('nodemailer');
-var mailTransport = nodemailer.createTransport('<credentials mailing credentials>');
+var mailTransport = nodemailer.createTransport('smtps://olarewajuakeemopeyemi%40gmail.com:Alfawhitewhite1988@smtp.gmail.com');
 var moment = require('moment');
 
 var async = require('async')
