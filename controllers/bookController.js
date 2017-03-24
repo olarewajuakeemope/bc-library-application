@@ -2,6 +2,8 @@ var Book = require('../models/book')
 var Author = require('../models/author')
 var Genre = require('../models/genre')
 var BookInstance = require('../models/bookinstance')
+var nodemailer = require('nodemailer');
+
 
 var async = require('async')
 
@@ -406,19 +408,12 @@ exports.book_borrow_get = function(req, res, next) {
     res.redirect('/catalog/user/login');
   }
 
-  //Book borrowed for & days
+  //Book borrowed for & days object
   var bookinstance = new BookInstance({
     book: req.params.id,
     imprint: req.user._id,
     status: "Loaned",
     due_back: Date.now() + 604800000
-  });
-
-  bookinstance.save(function(err) {
-    if (err) {
-      return next(err);
-    }
-    console.log("created new instance")
   });
 
   Book.findById(req.params.id).exec(function(err, book) {
@@ -439,6 +434,13 @@ exports.book_borrow_get = function(req, res, next) {
       genre: book.genre,
       _id: req.params.id //This is required, or a new ID will be assigned!
     });
+    //Book borrowed for & days object
+    bookinstance.save(function(err) {
+    if (err) {
+      return next(err);
+    }
+    console.log("created new instance")
+  });
 
     Book.findByIdAndUpdate(req.params.id, thebook, {}, function(err, newbook) {
       if (err) {
