@@ -1,7 +1,12 @@
 # bc-library-application
 Final project for Andela bootcamp 20
 
-This is a Library Application mimmicking a local Library. The application has the following features:
+This is a Library Application for a local Library. It is built using the following technologies:
+1. Nodejs Express module to handle the application's routing.
+2. Mongoose DB is used to store the application's data.
+3. Material Design Lite (MDL) is used to design the application's interface.
+
+The application has the following features:
 
 1. A user can signup
 2. A user can login
@@ -25,3 +30,4 @@ This is a Library Application mimmicking a local Library. The application has th
 20. An admin can delete a borrowed instance
 21. A user can borrow multiple books
 22. A user is guarded from using an already existing email
+23. A user is blocked from accessing unauthorized pages
