@@ -423,7 +423,10 @@ exports.book_borrow_get = function(req, res, next) {
 
   Book.findById(req.params.id).exec(function(err, book) {
     if (book.isbn == 0) {
-      res.render(url, { title: 'This book currently has no copies in the library', error: err, user: user });
+      var err = new Error('Not Found');
+      err.status = 404;
+      res.send("<h2 style='text-align: center;'>There are no copies of this book in the library at the moment</h2><p style='text-align: center;'><a href='" + book.url + "'>Go Back</a></p>");
+      next(err);
     }
     if (err) {
       return next(err);
