@@ -1,7 +1,8 @@
 # bc-library-application
 Final project for Andela bootcamp 20
+This is a Library Application for a local Library.
 
-## This is a Library Application for a local Library. It is built using the following technologies:
+##  Technologies used include the following:
 1. Nodejs Express module to handle the application's routing.
 2. Mongoose DB is used to store the application's data.
 3. Material Design Lite (MDL) is used to design the application's interface.
