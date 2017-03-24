@@ -6,6 +6,14 @@ This is a Library Application for a local Library. It is built using the followi
 2. Mongoose DB is used to store the application's data.
 3. Material Design Lite (MDL) is used to design the application's interface.
 
+To run the app locally, follow the following steps:
+1. Clone or download the application to your local device
+2. Run npm install from the root directory
+3. Start the application br running: SET DEBUG=LibApp:* & npm run devstart
+4. Create a user account or login with the following admin details:
+   email: admin@gmail.com
+   password: password
+
 The application has the following features:
 
 1. A user can signup

@@ -2,9 +2,6 @@ var Book = require('../models/book')
 var Author = require('../models/author')
 var Genre = require('../models/genre')
 var BookInstance = require('../models/bookinstance')
-var nodemailer = require('nodemailer');
-var mailTransport = nodemailer.createTransport('smtps://olarewajuakeemopeyemi%40gmail.com:Alfawhitewhite1988@smtp.gmail.com');
-var moment = require('moment');
 
 var async = require('async')
 
@@ -420,7 +417,6 @@ exports.book_borrow_get = function(req, res, next) {
   Book.findById(req.params.id).exec(function(err, book) {
     if (book.isbn == 0) {
       var err = new Error('Not Found');
-      err.status = 404;
       res.send("<h2 style='text-align: center;'>There are no copies of this book in the library at the moment</h2><p style='text-align: center;'><a href='" + book.url + "'>Go Back</a></p>");
       next(err);
     }
@@ -441,17 +437,6 @@ exports.book_borrow_get = function(req, res, next) {
       return next(err);
     }
     console.log("created new instance")
-  });
-
-//send notification
-  var mailOptions = {
-    from: '"Local Library" <noreply@library.com>',
-    to: req.user.email,
-    subject: 'Borrowed Book',
-    text: 'You have borrowed ' + book.title + ' and must be returned by ' + moment(Date.now() + 604800000).format('YYYY-MM-DD') + ' to avoid a daily charge of 100 Naira'
-  };
-  mailTransport.sendMail(mailOptions).then(function() {
-    console.log('New star email notification sent to: ' + req.user.email);
   });
 
     Book.findByIdAndUpdate(req.params.id, thebook, {}, function(err, newbook) {
