@@ -2,12 +2,6 @@ var Book = require('../models/book')
 var Author = require('../models/author')
 var Genre = require('../models/genre')
 var BookInstance = require('../models/bookinstance')
-<<<<<<< HEAD
-=======
-var nodemailer = require('nodemailer');
-var mailTransport = nodemailer.createTransport('smtps://olarewajuakeemopeyemi%40gmail.com:Alfawhitewhite1988@smtp.gmail.com');
-var moment = require('moment');
->>>>>>> 7858574... add mailiing feature
 
 var async = require('async')
 
@@ -443,17 +437,6 @@ exports.book_borrow_get = function(req, res, next) {
       return next(err);
     }
     console.log("created new instance")
-  });
-
-//send notification
-  var mailOptions = {
-    from: '"Local Library" <noreply@library.com>',
-    to: req.user.email,
-    subject: 'Borrowed Book',
-    text: 'You have borrowed ' + book.title + ' and must be returned by ' + moment(Date.now() + 604800000).format('YYYY-MM-DD') + ' to avoid a daily charge of 100 Naira'
-  };
-  mailTransport.sendMail(mailOptions).then(function() {
-    console.log('New star email notification sent to: ' + req.user.email);
   });
 
     Book.findByIdAndUpdate(req.params.id, thebook, {}, function(err, newbook) {
