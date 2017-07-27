@@ -24,7 +24,7 @@ exports.user_access = function(req, res, next) {
   if (req.user) {
     next();
   } else {
-    res.redirect('/catalog/user/login');;
+    res.redirect('/catalog/user/login');
   }
 
 };
