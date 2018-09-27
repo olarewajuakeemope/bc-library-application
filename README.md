@@ -1,5 +1,4 @@
 # bc-library-application
-Final project for Andela bootcamp 20
 This is a Library Application for a local Library.
 
 ##  Technologies used include the following:
